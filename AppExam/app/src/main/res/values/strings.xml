@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AppExam</string>
+    <string name="nav_draw_open">Abierto</string>
+    <string name="nav_draw_close">Cerrado</string>
 </resources>

@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -50,6 +52,8 @@ dependencies {
     implementation("androidx.drawerlayout:drawerlayout:1.2.0")
     implementation("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
 
-
+    //DaggerHilt
+    implementation ("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
 
 }

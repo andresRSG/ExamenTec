@@ -2,4 +2,10 @@
     <string name="app_name">AppExam</string>
     <string name="nav_draw_open">Abierto</string>
     <string name="nav_draw_close">Cerrado</string>
+    <string name="iniciar_sesi_n">Iniciar sesión</string>
+    <string name="correo_electr_nico">Correo electrónico</string>
+    <string name="ingresa_contrase_a">Ingresa contraseña</string>
+    <string name="entrar">Entrar</string>
+    <string name="crear_cuenta">Crear cuenta</string>
+    <string name="rcuperar_contrase_a">Rcuperar contraseña</string>
 </resources>

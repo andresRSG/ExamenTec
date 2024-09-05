@@ -80,8 +80,9 @@
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:layout_marginTop="40dp"
-                style="@style/Widget.AppCompat.Button"
+                style="@style/Widget.AppCompat.Button.Small"
                 android:textSize="15sp"
+                android:enabled="false"
                 />
 
             <TextView

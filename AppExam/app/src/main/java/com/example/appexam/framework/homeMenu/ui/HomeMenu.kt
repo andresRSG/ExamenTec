@@ -1,19 +1,16 @@
-package com.example.appexam
+package com.example.appexam.framework.homeMenu.ui
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.Gravity
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.appexam.R
 import com.google.android.material.navigation.NavigationView
 
 class HomeMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
@@ -31,7 +28,10 @@ class HomeMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         setSupportActionBar(toolbar)
 
         drawer = findViewById(R.id.drawer_layout)
-        toogle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.nav_draw_open, R.string.nav_draw_close)
+        toogle = ActionBarDrawerToggle(this, drawer, toolbar,
+            R.string.nav_draw_open,
+            R.string.nav_draw_close
+        )
         drawer.addDrawerListener(toogle)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

@@ -8,4 +8,8 @@
     <string name="entrar">Entrar</string>
     <string name="crear_cuenta">Crear cuenta</string>
     <string name="rcuperar_contrase_a">Rcuperar contraseña</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="aviso">Aviso</string>
+    <string name="aceptar">Aceptar</string>
 </resources>

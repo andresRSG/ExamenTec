@@ -1,4 +1,4 @@
-package com.example.appexam.framework.homeMenu.ui
+package com.example.appexam
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

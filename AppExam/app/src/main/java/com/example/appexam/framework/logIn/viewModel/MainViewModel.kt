@@ -4,13 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.appexam.domain.GetErrorUseCase
 import com.example.appexam.domain.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val getErrorUseCase: GetErrorUseCase
 ) : ViewModel() {
 
     private val _isEmailValid = MutableLiveData<Boolean>()
@@ -25,6 +29,9 @@ class MainViewModel @Inject constructor(
 
     private val _showErrorDialog = MutableLiveData<Boolean>()
     val showErrorDialog : LiveData<Boolean> = _showErrorDialog
+
+    private val _textError = MutableLiveData<String>()
+    val textError : LiveData<String> = _textError
 
     init {
         _isButtonEnabled.addSource(_isEmailValid) { isEmailValid ->
@@ -52,8 +59,17 @@ class MainViewModel @Inject constructor(
     }
 
     fun logIn(){
-        _showErrorDialog.value = true
+        viewModelScope.launch{
+            val result : String? = getErrorUseCase("DB211")
+            if(!result.isNullOrEmpty()){
+                _textError.value = result.let { it }
+            }else{
+                _textError.value = "Error No encontrado"
+            }
 
+            _showErrorDialog.value = true
+
+        }
     }
 
     fun closeErrorDialog(){

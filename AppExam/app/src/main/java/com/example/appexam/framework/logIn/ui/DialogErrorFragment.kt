@@ -11,7 +11,7 @@ import com.example.appexam.R
 import com.example.appexam.framework.logIn.viewModel.MainViewModel
 
 
-class DialogErrorFragment(val errorText : String, val viewModel: MainViewModel) : DialogFragment() {
+class DialogErrorFragment(val errorText : String) : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState:Bundle?): View? {
         return inflater.inflate(R.layout.fragment_dialog_error, container, false)
@@ -24,8 +24,9 @@ class DialogErrorFragment(val errorText : String, val viewModel: MainViewModel) 
 
         tvErrorText.text = errorText
 
+
         btnAceptar.setOnClickListener {
-            viewModel.closeErrorDialog()
+            dismiss()
         }
 
 

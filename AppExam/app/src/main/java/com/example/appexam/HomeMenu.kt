@@ -45,10 +45,10 @@ class HomeMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.nav_item_one -> Toast.makeText(this, "nav uno", Toast.LENGTH_SHORT).show()
-            R.id.nav_item_dos -> Toast.makeText(this, "nav uno", Toast.LENGTH_SHORT).show()
-            R.id.nav_item_tres -> Toast.makeText(this, "nav uno", Toast.LENGTH_SHORT).show()
-            R.id.nav_item_cuatro -> Toast.makeText(this, "nav uno", Toast.LENGTH_SHORT).show()
+            R.id.nav_item_datos_compania -> Toast.makeText(this, "nav uno", Toast.LENGTH_SHORT).show()
+            R.id.nav_item_supervisores -> Toast.makeText(this, "nav uno", Toast.LENGTH_SHORT).show()
+            R.id.nav_item_zonas -> Toast.makeText(this, "nav uno", Toast.LENGTH_SHORT).show()
+            R.id.nav_item_estaciones -> Toast.makeText(this, "nav uno", Toast.LENGTH_SHORT).show()
         }
 
         drawer.closeDrawer(GravityCompat.START)

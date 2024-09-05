@@ -56,4 +56,23 @@ dependencies {
     implementation ("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
 
+    // Fragment
+    implementation ("androidx.fragment:fragment-ktx:1.8.3")
+
+    // Activity
+    implementation ("androidx.activity:activity-ktx:1.9.1")
+    /*MVVM Live Data*/
+    // ViewModel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")
+    // LiveData
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.4")
+
+    // Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    //Corrutinas
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+
+
 }

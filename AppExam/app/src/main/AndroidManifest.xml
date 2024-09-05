@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:name=".AppExam"
+        android:name=".framework.homeMenu.ui.AppExam"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -24,7 +24,7 @@
 
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".framework.logIn.ui.MainActivity"
             android:exported="true">
 
         </activity>

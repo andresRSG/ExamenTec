@@ -23,6 +23,6 @@ interface ExamApiClient {
         @Header("Authorization") authorization: String
     ): Response<EmpleadosResponse>
 
-    
+
 
 }

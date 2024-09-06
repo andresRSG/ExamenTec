@@ -27,6 +27,8 @@ class HomeMenuViewModel @Inject constructor(
 
     private val _isShowProgressBar = MediatorLiveData<Boolean>()
     val isShowProgressBar: LiveData<Boolean> = _isShowProgressBar
+
+
     private val _isSesionActiva = MediatorLiveData<Boolean>()
     val isSesionActiva: LiveData<Boolean> = _isSesionActiva
 

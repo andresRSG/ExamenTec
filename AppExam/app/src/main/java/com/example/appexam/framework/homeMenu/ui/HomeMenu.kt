@@ -24,6 +24,7 @@ import androidx.lifecycle.Observer
 import com.example.appexam.R
 import com.example.appexam.databinding.ActivityHomeMenuBinding
 import com.example.appexam.framework.homeMenu.ui.fragments.FragmentDatosEmpresa
+import com.example.appexam.framework.homeMenu.ui.fragments.FragmentEmpleados
 import com.example.appexam.framework.homeMenu.ui.fragments.FragmentGenerico
 import com.example.appexam.framework.homeMenu.ui.fragments.FragmentSupervisores
 import com.example.appexam.framework.homeMenu.ui.fragments.FragmentZonas
@@ -121,7 +122,7 @@ class HomeMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
                 fragmentTransaction.replace(R.id.frameLayoutHome, FragmentGenerico(item.title.toString())).commit()
             }
             R.id.nav_item_empleados -> {
-                fragmentTransaction.replace(R.id.frameLayoutHome, FragmentGenerico(item.title.toString())).commit()
+                fragmentTransaction.replace(R.id.frameLayoutHome, FragmentEmpleados(viewModel.userSesion.value?.token!!)).commit()
             }
             R.id.nav_item_estaciones -> {
                 fragmentTransaction.replace(R.id.frameLayoutHome, FragmentGenerico(item.title.toString())).commit()
@@ -136,6 +137,10 @@ class HomeMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
 
             }
             R.id.nav_item_cambiar_password -> {
+                fragmentTransaction.replace(R.id.frameLayoutHome, FragmentGenerico(item.title.toString())).commit()
+
+            }
+            R.id.nav_item_configuraciones -> {
                 fragmentTransaction.replace(R.id.frameLayoutHome, FragmentGenerico(item.title.toString())).commit()
 
             }

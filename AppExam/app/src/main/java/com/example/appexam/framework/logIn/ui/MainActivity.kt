@@ -1,9 +1,12 @@
 package com.example.appexam.framework.logIn.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -63,6 +66,20 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.isShowProgressBar.observe(this, Observer { isShow ->
+            if(isShow){
+                binding.progressBar.visibility = View.VISIBLE
+                binding.viewProgressBar.visibility = View.VISIBLE
+                //cerrar el teclado
+                val view = currentFocus ?: View(this)
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+            }else{
+                binding.progressBar.visibility = View.GONE
+                binding.viewProgressBar.visibility = View.GONE
+            }
+        })
+
         viewModel.loginInit.observe(this, Observer { resut ->
             val intent = Intent(this, HomeMenu::class.java)
             startActivity(intent)
@@ -72,6 +89,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnEntrar.setOnClickListener {
             viewModel.doLogin()
         }
+        binding.viewProgressBar.setOnClickListener {  }
 
 
 

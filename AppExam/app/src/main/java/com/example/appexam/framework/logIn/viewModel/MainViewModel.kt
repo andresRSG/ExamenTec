@@ -42,6 +42,8 @@ class MainViewModel @Inject constructor(
     private val _password = MediatorLiveData<String>()
     val password: LiveData<String> = _password
 
+    private val _isShowProgressBar = MediatorLiveData<Boolean>()
+    val isShowProgressBar: LiveData<Boolean> = _isShowProgressBar
 
 
 
@@ -89,18 +91,23 @@ class MainViewModel @Inject constructor(
 
     fun doLogin(){
         viewModelScope.launch {
+            _isShowProgressBar.value = true
             val requestLogin = RequestLogin(_email.value?:"", _password.value?:"")
             var result = loginUseCase(requestLogin)
-            if(result != null){
+            if(result != null && !result.error){
+                _isShowProgressBar.value = false
                 _loginInit.value = true
             }else{
-                val result : String? = getErrorUseCase("DB211")
-                if(!result.isNullOrEmpty()){
-                    _textError.value = result.let { it }
-                }else{
-                    _textError.value = "Error No encontrado"
+                var message : String? = ""
+                if (result != null ){
+                    message = getErrorUseCase("DB211")?:""
                 }
-
+                if(message.isNullOrEmpty()){
+                    _textError.value = "Error No encontrado"
+                }else{
+                    _textError.value = message!!
+                }
+                _isShowProgressBar.value = false
                 _showErrorDialog.value = true
             }
         }

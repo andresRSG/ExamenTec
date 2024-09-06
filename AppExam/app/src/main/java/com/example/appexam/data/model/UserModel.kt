@@ -8,7 +8,7 @@ data class UserModel(
     @SerializedName("error") val error: Boolean,
     @SerializedName("codigo") val codigo: String,
     @SerializedName("acceso") val acceso: Acceso,
-    @SerializedName("foto") val foto: String
+    @SerializedName("foto") val foto: String?
     ) {
         data class Acceso(
             @SerializedName("codigo") val codigo: String,
@@ -24,6 +24,6 @@ data class UserModel(
             @SerializedName("apellidoPat") val apellidoPat: String,
             @SerializedName("apellidoMat") val apellidoMat: String,
             @SerializedName("tipoUsuario") val tipoUsuario: Int,
-            @SerializedName("foto") val foto: String
+            @SerializedName("foto") val foto: String?
         )
     }

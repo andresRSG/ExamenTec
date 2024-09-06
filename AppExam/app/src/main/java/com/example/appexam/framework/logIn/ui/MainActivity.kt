@@ -31,6 +31,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel.checkSesion()
+
+        viewModel.isSesionActiva.observe(this, Observer {
+            val intent = Intent(this, HomeMenu::class.java)
+            startActivity(intent)
+        })
+
         binding.txInputEmail.editText?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}

@@ -6,8 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appexam.data.model.RequestLogin
+import com.example.appexam.data.model.UserSesion
 import com.example.appexam.domain.GetErrorUseCase
+import com.example.appexam.domain.GetUserSesion
 import com.example.appexam.domain.LoginUseCase
+import com.example.appexam.domain.SaveUserSesion
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,7 +18,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val getErrorUseCase: GetErrorUseCase
+    private val getErrorUseCase: GetErrorUseCase,
+    private val saveUserSesion: SaveUserSesion,
+    private val getUserSesion: GetUserSesion
 ) : ViewModel() {
 
     private val _isEmailValid = MutableLiveData<Boolean>()
@@ -45,9 +50,15 @@ class MainViewModel @Inject constructor(
     private val _isShowProgressBar = MediatorLiveData<Boolean>()
     val isShowProgressBar: LiveData<Boolean> = _isShowProgressBar
 
+    private val _isSesionActiva = MediatorLiveData<Boolean>()
+    val isSesionActiva: LiveData<Boolean> = _isSesionActiva
+
+
+
 
 
     init {
+
         _isButtonEnabled.addSource(_isEmailValid) { isEmailValid ->
             val isPasswordValid = _isPasswordValid.value ?: false
             _isButtonEnabled.value = isEmailValid && isPasswordValid
@@ -57,6 +68,15 @@ class MainViewModel @Inject constructor(
             val isEmailValid = _isEmailValid.value ?: false
             if(isEmailValid && isPasswordValid)
                 _isButtonEnabled.value = true
+        }
+    }
+
+    fun checkSesion(){
+        viewModelScope.launch {
+            val result = getUserSesion()
+            if(result != null && !result.token.isNullOrEmpty()){
+                _isSesionActiva.value = true
+            }
         }
     }
 
@@ -95,6 +115,20 @@ class MainViewModel @Inject constructor(
             val requestLogin = RequestLogin(_email.value?:"", _password.value?:"")
             var result = loginUseCase(requestLogin)
             if(result != null && !result.error){
+
+                val userSesion = UserSesion(
+                    token = result.token,
+                    foto = result.foto?:"",
+                    idUsuario = result.acceso.usuarioeTime.idUsuario,
+                    nombreCompleto = result.acceso.usuarioeTime.nombreCompleto,
+                    nombre = result.acceso.usuarioeTime.nombre,
+                    apellidoPat = result.acceso.usuarioeTime.apellidoPat,
+                    apellidoMat = result.acceso.usuarioeTime.apellidoMat,
+                    tipoUsuario = result.acceso.usuarioeTime.tipoUsuario
+                    )
+
+                saveUserSesion(userSesion)
+
                 _isShowProgressBar.value = false
                 _loginInit.value = true
             }else{
@@ -113,8 +147,5 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun closeErrorDialog(){
-        _showErrorDialog.value = false
-    }
 
 }

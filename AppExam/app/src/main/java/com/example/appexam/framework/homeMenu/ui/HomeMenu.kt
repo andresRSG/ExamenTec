@@ -3,6 +3,7 @@ package com.example.appexam.framework.homeMenu.ui
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -10,8 +11,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.replace
 import com.example.appexam.R
+import com.example.appexam.databinding.ActivityHomeMenuBinding
+import com.example.appexam.framework.homeMenu.ui.fragments.FragmentDatosEmpresa
+import com.example.appexam.framework.homeMenu.ui.fragments.FragmentGenerico
+import com.example.appexam.framework.homeMenu.ui.fragments.FragmentSupervisores
+import com.example.appexam.framework.homeMenu.ui.fragments.FragmentZonas
 import com.google.android.material.navigation.NavigationView
 
 class HomeMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
@@ -19,11 +27,14 @@ class HomeMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
     private lateinit var drawer: DrawerLayout
     private lateinit var toogle: ActionBarDrawerToggle
 
+    lateinit var binding: ActivityHomeMenuBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityHomeMenuBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_home_menu)
+        setContentView(binding.root)
 
         val toolbar : Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
@@ -53,33 +64,40 @@ class HomeMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
 
         when(item.itemId){
             R.id.nav_item_datos_compania ->{
+                fragmentTransaction.replace(R.id.frameLayoutHome, FragmentDatosEmpresa()).commit()
                 Toast.makeText(this, "${item.title}", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_item_supervisores -> {
-                Toast.makeText(this, "${item.title}", Toast.LENGTH_SHORT).show()
+                fragmentTransaction.replace(R.id.frameLayoutHome, FragmentSupervisores()).commit()
             }
             R.id.nav_item_zonas -> {
-                Toast.makeText(this, "${item.title}", Toast.LENGTH_SHORT).show()
+                fragmentTransaction.replace(R.id.frameLayoutHome, FragmentZonas()).commit()
+
             }
             R.id.nav_item_estaciones -> {
-                Toast.makeText(this, "${item.title}", Toast.LENGTH_SHORT).show()
+                fragmentTransaction.replace(R.id.frameLayoutHome, FragmentGenerico(item.title.toString())).commit()
             }
             R.id.nav_item_empleados -> {
-                Toast.makeText(this, "${item.title}", Toast.LENGTH_SHORT).show()
+                fragmentTransaction.replace(R.id.frameLayoutHome, FragmentGenerico(item.title.toString())).commit()
             }
             R.id.nav_item_estaciones -> {
-                Toast.makeText(this, "${item.title}", Toast.LENGTH_SHORT).show()
+                fragmentTransaction.replace(R.id.frameLayoutHome, FragmentGenerico(item.title.toString())).commit()
+
             }
             R.id.nav_item_reportes -> {
-                Toast.makeText(this, "${item.title}", Toast.LENGTH_SHORT).show()
+                fragmentTransaction.replace(R.id.frameLayoutHome, FragmentGenerico(item.title.toString())).commit()
+
             }
             R.id.nav_item_historial -> {
-                Toast.makeText(this, "${item.title}", Toast.LENGTH_SHORT).show()
+                fragmentTransaction.replace(R.id.frameLayoutHome, FragmentGenerico(item.title.toString())).commit()
+
             }
             R.id.nav_item_cambiar_password -> {
-                Toast.makeText(this, "${item.title}", Toast.LENGTH_SHORT).show()
+                fragmentTransaction.replace(R.id.frameLayoutHome, FragmentGenerico(item.title.toString())).commit()
+
             }
             R.id.nav_item_cerrar_sesion -> {
+
                 Toast.makeText(this, "${item.title}", Toast.LENGTH_SHORT).show()
             }
         }
@@ -95,6 +113,10 @@ class HomeMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
     override fun onPostCreate(savedInstanceState: Bundle?){
         super.onPostCreate(savedInstanceState)
         toogle.syncState()
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameLayoutHome, FragmentDatosEmpresa()).commit()
+
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

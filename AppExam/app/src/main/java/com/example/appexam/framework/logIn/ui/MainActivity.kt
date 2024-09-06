@@ -1,5 +1,6 @@
 package com.example.appexam.framework.logIn.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appexam.databinding.ActivityMainBinding
+import com.example.appexam.framework.homeMenu.ui.HomeMenu
 import com.example.appexam.framework.logIn.viewModel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -62,10 +64,10 @@ class MainActivity : AppCompatActivity() {
 
         //listeners
         binding.btnEntrar.setOnClickListener {
-            viewModel.logIn()
+            //viewModel.logIn()
 
-        //val intent = Intent(this, HomeMenu::class.java)
-            //startActivity(intent)
+            val intent = Intent(this, HomeMenu::class.java)
+            startActivity(intent)
         }
 
 

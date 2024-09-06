@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.appexam.data.model.RequestLogin
 import com.example.appexam.domain.GetErrorUseCase
 import com.example.appexam.domain.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +22,6 @@ class MainViewModel @Inject constructor(
     val isEmailValid: LiveData<Boolean> = _isEmailValid
 
     private val _isPasswordValid = MutableLiveData<Boolean>()
-
     val isPasswordValid: LiveData<Boolean> = _isPasswordValid
 
     private val _isButtonEnabled = MediatorLiveData<Boolean>()
@@ -33,6 +33,18 @@ class MainViewModel @Inject constructor(
     private val _textError = MutableLiveData<String>()
     val textError : LiveData<String> = _textError
 
+    private val _loginInit = MediatorLiveData<Boolean>()
+    val loginInit: LiveData<Boolean> = _loginInit
+
+    private val _email = MediatorLiveData<String>()
+    val email: LiveData<String> = _email
+
+    private val _password = MediatorLiveData<String>()
+    val password: LiveData<String> = _password
+
+
+
+
     init {
         _isButtonEnabled.addSource(_isEmailValid) { isEmailValid ->
             val isPasswordValid = _isPasswordValid.value ?: false
@@ -41,15 +53,18 @@ class MainViewModel @Inject constructor(
 
         _isButtonEnabled.addSource(_isPasswordValid) { isPasswordValid ->
             val isEmailValid = _isEmailValid.value ?: false
-            _isButtonEnabled.value = isEmailValid && isPasswordValid
+            if(isEmailValid && isPasswordValid)
+                _isButtonEnabled.value = true
         }
     }
 
     fun onEmailChanged(email: String) {
+        _email.value = email
         _isEmailValid.value = isValidEmail(email)
     }
 
     fun onPasswordChanged(password: String) {
+        _password.value = password
         _isPasswordValid.value = password.length >= 6
     }
 
@@ -69,6 +84,25 @@ class MainViewModel @Inject constructor(
 
             _showErrorDialog.value = true
 
+        }
+    }
+
+    fun doLogin(){
+        viewModelScope.launch {
+            val requestLogin = RequestLogin(_email.value?:"", _password.value?:"")
+            var result = loginUseCase(requestLogin)
+            if(result != null){
+                _loginInit.value = true
+            }else{
+                val result : String? = getErrorUseCase("DB211")
+                if(!result.isNullOrEmpty()){
+                    _textError.value = result.let { it }
+                }else{
+                    _textError.value = "Error No encontrado"
+                }
+
+                _showErrorDialog.value = true
+            }
         }
     }
 

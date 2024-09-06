@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.example.appexam.databinding.ActivityMainBinding
 import com.example.appexam.framework.homeMenu.ui.HomeMenu
 import com.example.appexam.framework.logIn.viewModel.MainViewModel
@@ -62,12 +63,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        //listeners
-        binding.btnEntrar.setOnClickListener {
-            //viewModel.logIn()
-
+        viewModel.loginInit.observe(this, Observer { resut ->
             val intent = Intent(this, HomeMenu::class.java)
             startActivity(intent)
+        })
+
+        //listeners
+        binding.btnEntrar.setOnClickListener {
+            viewModel.doLogin()
         }
 
 

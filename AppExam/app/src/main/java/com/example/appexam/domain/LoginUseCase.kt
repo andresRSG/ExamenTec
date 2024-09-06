@@ -8,6 +8,6 @@ import javax.inject.Inject
 class LoginUseCase @Inject constructor(
     private val repository: ExamRepository
 ) {
-    suspend fun invoke(requestLogin: RequestLogin) : UserModel?
+    suspend operator fun invoke(requestLogin: RequestLogin) : UserModel?
     = repository.loginRepository(requestLogin)
 }
